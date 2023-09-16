@@ -8,3 +8,9 @@
 [EbenGunadi_Assignment4.pptx](EbenGunadi_Assignment4.pptx) contains a presentation of the findings.
 
 ## Task 2: Country Comparison Infographic
+
+The original, full data on "Labour force and unemployment" can be downloaded here:
+
+<https://data.un.org/_Docs/SYB/CSV/SYB65_329_202209_Labour%20Force%20and%20Unemployment.csv>
+
+(Note that the first row is the spreadsheet title and must be manually removed prior to processing.) 
