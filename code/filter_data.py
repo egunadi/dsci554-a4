@@ -11,18 +11,20 @@ def filter_data():
     # filter to countries 'United States of America' and 'Indonesia'
     df = df[df['Region/Country/Area'].isin(['United States of America', 'Indonesia'])]
     
-    labour22_df = df[(df['Series'].isin(['Labour force participation - Male',
-                                         'Labour force participation - Female'])) 
-                        & (df['Year'] == 2022)] 
+    # find male and female labour participation rates
+    labour_df = df[(df['Series'].isin(['Labour force participation - Male',
+                                         'Labour force participation - Female']))]
       
-    labour22_df = labour22_df[['Region/Country/Area', 'Series', 'Value']]
+    labour_df = labour_df[['Region/Country/Area', 'Year', 'Series', 'Value']]
     
-    labour22_df = pd.pivot_table(labour22_df,
-                                 values = 'Value',
-                                 index = ['Region/Country/Area'],
-                                 columns = 'Series').reset_index()
+    labour_df = pd.pivot_table(labour_df,
+                               values = 'Value',
+                               index = ['Region/Country/Area', 'Year'],
+                               columns = 'Series').reset_index()
     
-    labour22_df.to_csv('../data/labour22.csv', encoding='utf-8', index=False)
+    labour_df.to_csv('../data/labour.csv', encoding='utf-8', index=False)
+    
+    # find male and female
 
 if __name__ == '__main__':
     filter_data()
