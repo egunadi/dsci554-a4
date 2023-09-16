@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    /* Simple reset and styling */
+    html,body,div,span,applet,object,iframe,h1,h2,
+    h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,
+    address,big,cite,code,del,dfn,em,img,ins,kbd,q,
+    s,samp,small,strike,strong,sub,sup,tt,var,b,u,
+    i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,
+    legend,table,caption,tbody,tfoot,thead,tr,th,
+    td,article,aside,canvas,details,embed,figure,
+    figcaption,footer,header,hgroup,menu,nav,
+    output,ruby,section,summary,time,mark,audio,
+    video
+    {
+      margin:0;
+      padding:0;
+      border:0;
+      font-size:100%;
+      font: inherit;
+      vertical-align: baseline;
+    }
+
+    /* Style for bars */
+    .bar {
+      fill: orange;
+    }
+
+    .bar-text {
+      fill: black;
+      font-size: 12px;
+      text-anchor: end;
+    }  
+
+    /* Style for the axis labels */
+    .axis-label {
+      font-size: 12px;
+      text-anchor: end; /* Right-align the axis labels */
+    }
+  </style>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <!-- Create an SVG container for the axis and chart -->
+  <svg width="1000" height="400"> <!-- Increased height to accommodate all labels -->
+    <!-- Create a group for the axis and translate it to the left -->
+    <g transform="translate(50, 35)" id="axis">
+      <!-- Axis labels will be added here -->
+    </g>
+    <!-- Create a group for the chart and translate it to the right -->
+    <g transform="translate(60, 10)" id="chart">
+      <!-- Bars will be added here -->
+    </g>
+  </svg>
+
+  <script>
+    // Data for the bar chart
+    const data = [64.4,   // 2005
+                  66.6,   // 2010
+                  66.6,   // 2015
+                  67.6];  // 2022
+
+    const years = [2005,    
+                   2010,   
+                   2015,   
+                   2022]; 
+
+    // Select the axis container
+    const axis = d3.select("#axis");
+
+    // Bind data to the axis container and create axis labels
+    axis.selectAll(".axis-label")
+      .data(years)
+      .enter()
+      .append("text")
+      .attr("class", "axis-label")
+      .attr("x", 0) // Adjust the x-coordinate of labels
+      .attr("y", (d, i) => i * 40) // Adjust the vertical position of labels
+      .text(d => d);
+
+    // Select the chart container
+    const chart = d3.select("#chart");
+
+    // Bind data to the chart container and create bars
+    const bars = chart.selectAll(".bar")
+      .data(data)
+      .enter();  //enter selection
+
+    // Append the bar rectangles
+    bars.append("rect")
+      .attr("x", 10)
+      .attr("y", (d, i) => 10 + i * 40)
+      .attr("width", d => (d**2 - 4000))
+      .attr("height", 30)
+      .attr("class", "bar");
+
+    // Append the text labels
+    bars.append("text")
+      .attr("x", d => d**2 - 4000)
+      .attr("y", (d, i) => 30 + (i * 40))
+      .attr("class", "bar-text")
+      .text(d => d + "%");
+  </script>  
+</body>
+</html>

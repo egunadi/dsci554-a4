@@ -13,7 +13,8 @@ def filter_data():
     
     # find male and female labour participation rates
     labour_df = df[(df['Series'].isin(['Labour force participation - Male',
-                                         'Labour force participation - Female']))]
+                                       'Labour force participation - Female',
+                                       'Labour force participation - Total']))]
       
     labour_df = labour_df[['Region/Country/Area', 'Year', 'Series', 'Value']]
     

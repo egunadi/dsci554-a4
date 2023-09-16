@@ -1,9 +1,9 @@
-Region/Country/Area,Year,Labour force participation - Female,Labour force participation - Male
-Indonesia,2005,46.0,82.9
-Indonesia,2010,50.9,82.3
-Indonesia,2015,50.7,82.4
-Indonesia,2022,53.7,81.6
-United States of America,2005,58.3,72.0
-United States of America,2010,57.7,69.9
-United States of America,2015,55.8,67.9
-United States of America,2022,55.2,66.4
+Region/Country/Area,Year,Labour force participation - Female,Labour force participation - Male,Labour force participation - Total
+Indonesia,2005,46.0,82.9,64.4
+Indonesia,2010,50.9,82.3,66.6
+Indonesia,2015,50.7,82.4,66.6
+Indonesia,2022,53.7,81.6,67.6
+United States of America,2005,58.3,72.0,65.0
+United States of America,2010,57.7,69.9,63.7
+United States of America,2015,55.8,67.9,61.7
+United States of America,2022,55.2,66.4,60.7

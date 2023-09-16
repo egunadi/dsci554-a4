@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    /* Simple reset and styling */
+    html,body,div,span,applet,object,iframe,h1,h2,
+    h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,
+    address,big,cite,code,del,dfn,em,img,ins,kbd,q,
+    s,samp,small,strike,strong,sub,sup,tt,var,b,u,
+    i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,
+    legend,table,caption,tbody,tfoot,thead,tr,th,
+    td,article,aside,canvas,details,embed,figure,
+    figcaption,footer,header,hgroup,menu,nav,
+    output,ruby,section,summary,time,mark,audio,
+    video
+    {
+      margin:0;
+      padding:0;
+      border:0;
+      font-size:100%;
+      font: inherit;
+      vertical-align: baseline;
+    }
+
+    /* Style for bars */
+    div.bar {
+      background-color: orange;
+      margin-bottom: 6px;
+      text-align: right;
+    }
+
+    /* Style for the axis container */
+    .axis {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-left: 60px;
+      float: left; /* Float the axis container to the left */
+    }
+
+    /* Style for axis labels */
+    .axis-label {
+      font-size: 12px;
+      margin-bottom: 6px;
+      margin-top: 6px;
+    }
+
+    /* Style for the chart container */
+    #chart {
+      margin-left: 120px; /* Add margin to the left of the chart to avoid overlap */
+    }
+
+    /* Style for the main container */
+    #container {
+      margin-top: 10px;
+    }
+  </style>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <!-- Create a container for the axis and chart -->
+  <div id="container">
+    <!-- Create a container for the axis -->
+    <div class="axis" id="axis">
+      <!-- Axis labels will be added here -->
+    </div>
+    <!-- Create a container for the chart -->
+    <div id="chart"></div>
+  </div>
+
+  <script>
+    // Data for the bar chart
+    const data = [65,     // 2005 
+                  63.7,   // 2010
+                  61.7,   // 2015
+                  60.7];  // 2022
+
+    const years = [2005,    
+                   2010,   
+                   2015,   
+                   2022]; 
+
+    // Select the axis container
+    const axis = d3.select("#axis");
+
+    // Bind data to the axis container and create axis labels
+    axis.selectAll(".axis-label")
+      .data(years)
+      .enter()
+      .append("div")
+      .attr("class", "axis-label")
+      .text(d => d);
+
+    // Select the chart container
+    const chart = d3.select("#chart");
+
+    // Bind data to the chart container and create bars
+    chart.selectAll(".bar")
+      .data(data)
+      .enter()
+      .append("div")
+      .attr("class", "bar")
+      .style("width", d => (d**2 - 3600) + "px")
+      .text(d => d + "%");
+  </script>  
+</body>
+</html>
