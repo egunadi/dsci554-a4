@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    /* Simple reset and styling */
+    html,body,div,span,applet,object,iframe,h1,h2,
+    h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,
+    address,big,cite,code,del,dfn,em,img,ins,kbd,q,
+    s,samp,small,strike,strong,sub,sup,tt,var,b,u,
+    i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,
+    legend,table,caption,tbody,tfoot,thead,tr,th,
+    td,article,aside,canvas,details,embed,figure,
+    figcaption,footer,header,hgroup,menu,nav,
+    output,ruby,section,summary,time,mark,audio,
+    video
+    {
+      margin:0;
+      padding:0;
+      border:0;
+      font-size:100%;
+      font: inherit;
+      vertical-align: baseline;
+    }
+
+    .custom-circle {
+      fill: orange; /* Set the fill color to orange */
+    }
+  </style>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <svg id="my-svg" width="1000" height="1000"></svg> 
+
+  <script>
+    const circleData = [
+      { cx: 2005, cy: 72, r: 58.3 },
+      { cx: 2010, cy: 69.9, r: 57.7 },
+      { cx: 2015, cy: 67.9, r: 55.8 },
+      { cx: 2022, cy: 66.4, r: 55.2 },
+    ];
+
+    const svg = d3.select('#my-svg');
+
+    // Extract the years and y values from circleData
+    const years = circleData.map(d => d.cx);
+    const yValues = circleData.map(d => d.cy);
+
+    const circles = svg
+      .selectAll('.custom-circle')
+      .data(circleData)
+      .enter();  //enter selection
+
+    const xScale = d3.scaleBand().domain(years).range([50, 350]);
+
+    circles.append('circle')
+      .attr('fill', 'orange')
+      .attr('r', d => (d.r**1.4) - 260)
+      .attr('cx', d => xScale(d.cx) + xScale.bandwidth() / 2) // Adjusted the positioning
+      .attr('cy', d => (-(d.cy**1.7) + 1550));
+
+    circles.append('text')
+      .attr('x', d => xScale(d.cx) + xScale.bandwidth() / 2) // Adjusted the positioning
+      .attr('y', d => (-(d.cy**1.7) + 1550) + 10) // Adjusted the y-position for text
+      .attr('fill', 'black')
+      .attr('text-anchor', 'middle')
+      .attr('alignment-baseline', 'central')
+      .attr('font-size', '12px')
+      .text(d => d.r);
+
+    // Define the scales and domains for both X and Y axes
+    const yScale = d3.scaleLinear().domain([50, 80]).range([350, 50]);
+
+    // Create the X and Y axes
+    const xAxis = d3.axisBottom(xScale);
+    const yAxis = d3.axisLeft(yScale).ticks(4); // Set the number of ticks
+
+    // Append the X axis to the SVG
+    svg
+        .append("g")
+        .attr("transform", "translate(0, 350)") // Move the X axis to the bottom
+        .call(xAxis);
+
+    // Append the Y axis to the SVG
+    svg
+        .append("g")
+        .attr("transform", "translate(50, 0)") // Move the Y axis to the left
+        .call(yAxis);
+
+    // Add X axis label
+    svg
+        .append("text")
+        .attr("x", 200) // Adjust the x-position as needed
+        .attr("y", 390) // Adjust the y-position as needed
+        .style("text-anchor", "middle") // Center the label
+        .text("Year");
+
+    // Add Y axis label
+    svg
+        .append("text")
+        .attr("x", -200) // Adjust the x-position as needed
+        .attr("y", 20) // Adjust the y-position as needed
+        .style("text-anchor", "middle") // Center the label
+        .attr("transform", "rotate(-90)") // Rotate the label for Y axis
+        .text("Labour Force Participation - Male");
+
+    // Add Legend
+    const legend = svg.append("g")
+        .attr("class", "legend")
+        .attr("transform", "translate(200, 50)");
+
+    legend.append("rect")
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", 20)
+        .attr("height", 20)
+        .attr("fill", "orange");
+
+    legend.append("text")
+        .attr("x", 30)
+        .attr("y", 15)
+        .text("Labour Force Participation - Female");
+
+  </script>  
+</body>
+</html>
