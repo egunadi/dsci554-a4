@@ -29,18 +29,18 @@
     }
 
     #description {
-      display: flex;
-      justify-content: center;
+      margin-left: 50px;
+      margin-top: 30px;
     }
   </style>
   <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
   <div id="legend"></div> 
+  <div id="viz"></div>
   <div id="description" class="container">
     <strong>Labour Force Participation in Indonesia from 2015-2022</strong>
   </div>
-  <div id="viz"></div>
 
   <script>
     data = [
@@ -65,7 +65,7 @@
     legendContainer.innerHTML = createLegend(swatchcolor);
 
     // Specify the dimensions of the chart.
-    const width = 928;
+    const width = 500;
     const height = width;
     const margin = 1; // to avoid clipping the root circle stroke
     const name = d => d.id.split(".").pop(); // "Strings" of "flare.util.Strings"
