@@ -22,19 +22,47 @@
       font: inherit;
       vertical-align: baseline;
     }
+
+    #legend {
+      margin-left: 30px;
+      margin-top: 30px;
+    }
+
+    #description {
+      display: flex;
+      justify-content: center;
+    }
   </style>
   <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
+  <div id="legend"></div> 
+  <div id="description" class="container">
+    <strong>Labour Force Participation in Indonesia from 2015-2022</strong>
+  </div>
   <div id="viz"></div>
 
   <script>
     data = [
-      { id: "flare.analytics.cluster.AgglomerativeCluster", value: 3938 },
-      { id: "flare.vis.operator.distortion.BifocalDistortion", value: 4461},
-      { id: "flare.vis.operator.filter.FisheyeTreeFilter", value: 5219 },
-      { id: "flare.vis.operator.OperatorSequence", value: 4190}
+      { id: "un.Male.2005", value: 82.9 },
+      { id: "un.Female.2005", value: 64.4 },
+      { id: "un.Male.2010", value: 82.3 },
+      { id: "un.Female.2010", value: 66.6 },
+      { id: "un.Male.2015", value: 82.4 },
+      { id: "un.Female.2015", value: 66.6 },
+      { id: "un.Male.2022", value: 81.6 },
+      { id: "un.Female.2022", value: 67.6 }
     ]
+
+    const swatchcolor = d3.scaleOrdinal()
+                        .domain(["Male", "Female"])
+                        .range(d3.schemeCategory10)
+
+    const swatchmargin = {top: 20, right: 30, bottom: 30, left: 40}
+
+    // Create the legend manually
+    const legendContainer = document.getElementById('legend');
+    legendContainer.innerHTML = createLegend(swatchcolor);
 
     // Specify the dimensions of the chart.
     const width = 928;
@@ -105,7 +133,19 @@
         .attr("fill-opacity", 0.7)
         .text(d => format(d.value));
 
-    // return Object.assign(svg.node(), {scales: {color}});
+    // Function to create the legend HTML
+    function createLegend(colorScale) {
+      const domain = colorScale.domain();
+      let html = '<div style="display: flex; flex-wrap: wrap;">';
+      domain.forEach((item, index) => {
+        html += `<div style="display: flex; align-items: center; margin-right: 16px;">
+          <div style="width: 12px; height: 12px; background-color: ${colorScale(item)}; margin-right: 4px;"></div>
+          <div>${item}</div>
+        </div>`;
+      });
+      html += '</div>';
+      return html;
+    }
   </script>  
 </body>
 </html>
